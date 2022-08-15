@@ -18,18 +18,18 @@ doWsadzenia = str[:59]
 
 pytania_filtered.insert(0,doWsadzenia[:-1])
 
+#print(pytania_filtered[86])
 
-print(pytania_filtered[0])
 
 ###############################   ODPOWIEDZI   ###############################
 
-f = open("C:\\Users\\Marshal\\Downloads\\odpowiedzi.txt","r",encoding="utf-8")
+f = open("C:\\Users\\Marshal\\Downloads\\odpowiedzi1.txt","r",encoding="utf-8")
 
 lines = tuple( f.readlines())
 odpowiedzi = []
 
 for line in lines:
-    if len(line) > 5:
+    if len(line) > 4:
         odpowiedzi.append(re.sub("\n"," ",line))
         
 f.close()
@@ -39,20 +39,25 @@ q = open("C:\\Users\\Marshal\\Downloads\\sql_insert.txt","+w")
 q.write('INSERT INTO `questions` (`id`,`number`,`question`,`ansA`,`ansB`,`ansC`,`ansD`,`ansE`,`ansF`,`ansG`,`ansH`,`ansI`) VALUES ')
 
 licznik = 0
-
+"""
 for i in range(len(pytania_filtered)):
     q.write( '(\''+"{}".format(i)+'\',\''+pytania_filtered[i].split(" ",1)[0]+'\',\''+pytania_filtered[i].split(" ",1)[1]+'\'')
     for ans in range(9):
         if ans == 0:
             q.write(',\''+odpowiedzi[licznik][:-1]+'\'')
             licznik += 1
-        elif odpowiedzi[licznik].startswith('a)') or licznik>1871  :
+        elif odpowiedzi[licznik].startswith('a)')  :
             q.write(',\'\'')
         else:
             q.write(',\''+odpowiedzi[licznik][:-1]+'\'')
             licznik += 1
     q.write('),')
+   """
+for i in odpowiedzi:
+    if i.startswith('a)'):
+        licznik+=1
 
-print(q.read(1000))
+print(licznik)
+
 
 q.close()
