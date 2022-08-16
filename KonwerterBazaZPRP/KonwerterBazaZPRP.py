@@ -39,25 +39,33 @@ q = open("C:\\Users\\Marshal\\Downloads\\sql_insert.txt","+w")
 q.write('INSERT INTO `questions` (`id`,`number`,`question`,`ansA`,`ansB`,`ansC`,`ansD`,`ansE`,`ansF`,`ansG`,`ansH`,`ansI`) VALUES ')
 
 licznik = 0
-"""
+
 for i in range(len(pytania_filtered)):
-    q.write( '(\''+"{}".format(i)+'\',\''+pytania_filtered[i].split(" ",1)[0]+'\',\''+pytania_filtered[i].split(" ",1)[1]+'\'')
+    q.write( '(\''+"{}".format(i+380)+'\',\''+pytania_filtered[i].split(" ",1)[0]+'\',\''+pytania_filtered[i].split(" ",1)[1]+'\'')
     for ans in range(9):
         if ans == 0:
             q.write(',\''+odpowiedzi[licznik][:-1]+'\'')
             licznik += 1
-        elif odpowiedzi[licznik].startswith('a)')  :
+        elif odpowiedzi[licznik].startswith('a) ')  :
             q.write(',\'\'')
         else:
-            q.write(',\''+odpowiedzi[licznik][:-1]+'\'')
-            licznik += 1
+            if licznik < len(odpowiedzi)-1:
+                q.write(',\''+odpowiedzi[licznik][:-1]+'\'')
+                licznik += 1
     q.write('),')
-   """
+  
+'''
 for i in odpowiedzi:
-    if i.startswith('a)'):
+   if i.startswith('a)'):
         licznik+=1
+    
+
+licz = 0
+for i in pytania_filtered:
+    licz+=1
 
 print(licznik)
-
+print(licz)
+'''
 
 q.close()
